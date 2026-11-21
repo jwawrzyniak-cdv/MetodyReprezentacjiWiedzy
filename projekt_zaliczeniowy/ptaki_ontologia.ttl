@@ -1,0 +1,2347 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix p: <http://example.org/ptaki#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ptaki> a owl:Ontology ;
+    rdfs:label "Ptaki Polski: gatunki i obserwacje"@pl ;
+    owl:versionInfo "1.0" .
+
+p:GatunekLegowyWPolsce a owl:Class ;
+    rdfs:label "gatunek lęgowy w Polsce"@pl ;
+    rdfs:comment "Gatunek, który regularnie gniazduje w Polsce."@pl ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( p:Gatunek [ a owl:Restriction ;
+                        owl:onProperty p:maStatusPobytu ;
+                        owl:someValuesFrom p:StatusLegowy ] ) ] .
+
+p:GatunekObecnyZima a owl:Class ;
+    rdfs:label "gatunek obecny zimą"@pl ;
+    rdfs:comment "Gatunek, który regularnie przebywa w Polsce zimą."@pl ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( p:Gatunek [ a owl:Restriction ;
+                        owl:onProperty p:maStatusPobytu ;
+                        owl:someValuesFrom p:StatusZimowy ] ) ] .
+
+p:GatunekPolujacyNaKregowce a owl:Class ;
+    rdfs:label "gatunek polujący na kręgowce"@pl ;
+    rdfs:comment "Gatunek, którego pokarm obejmuje kręgowce."@pl ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( p:Gatunek [ a owl:Restriction ;
+                        owl:onProperty p:zywiSie ;
+                        owl:someValuesFrom p:PokarmKregowy ] ) ] .
+
+p:GatunekZagrozony a owl:Class ;
+    rdfs:label "gatunek globalnie zagrożony"@pl ;
+    rdfs:comment "Gatunek w kategorii VU, EN lub CR według IUCN."@pl ;
+    rdfs:subClassOf p:GatunekOWrazliwejLokalizacji ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( p:Gatunek [ a owl:Restriction ;
+                        owl:onProperty p:maKategorieIUCN ;
+                        owl:someValuesFrom p:KategoriaZagrozenia ] ) ] .
+
+p:GatunekZwiazanyZWoda a owl:Class ;
+    rdfs:label "gatunek związany z wodą"@pl ;
+    rdfs:comment "Gatunek, który ma wśród siedlisk wody lub mokradła."@pl ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( p:Gatunek [ a owl:Restriction ;
+                        owl:onProperty p:wystepujeW ;
+                        owl:someValuesFrom p:SiedliskoWodne ] ) ] .
+
+p:ObserwacjaGatunkuWrazliwego a owl:Class ;
+    rdfs:label "obserwacja gatunku wrażliwego"@pl ;
+    rdfs:comment "Obserwacja gatunku o wrażliwej lokalizacji."@pl ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( p:Obserwacja [ a owl:Restriction ;
+                        owl:onProperty p:dotyczyGatunku ;
+                        owl:someValuesFrom p:GatunekOWrazliwejLokalizacji ] ) ] .
+
+p:ObserwacjaLegowa a owl:Class ;
+    rdfs:label "obserwacja lęgowa"@pl ;
+    rdfs:comment "Obserwacja, w której odnotowano zachowanie lęgowe."@pl ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( p:Obserwacja [ a owl:Restriction ;
+                        owl:onProperty p:wykazanoZachowanie ;
+                        owl:someValuesFrom p:ZachowanieLegowe ] ) ] .
+
+p:PtakDrapiezny a owl:Class ;
+    rdfs:label "ptak drapieżny"@pl ;
+    rdfs:comment "Gatunek z rzędu ptaków drapieżnych."@pl ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:intersectionOf ( p:Gatunek [ a owl:Restriction ;
+                        owl:onProperty p:nalezyDoRzedu ;
+                        owl:someValuesFrom p:RzadPtakowDrapieznych ] ) ] .
+
+p:bazant a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "bażant"@pl ;
+    p:maBarwe p:Brazowy,
+        p:Czerwony,
+        p:Rudy,
+        p:Zielony ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:BardzoDuzy ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Phasianidae ;
+    p:nazwaNaukowa "Phasianus colchicus" ;
+    p:wystepujeW p:TerenOtwarty ;
+    p:zywiSie p:Nasiona,
+        p:Owady,
+        p:RoslinyZielone ;
+    skos:altLabel "bażant zwyczajny"@pl ;
+    skos:exactMatch wd:Q25432 .
+
+p:czapla_siwa a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "czapla siwa"@pl ;
+    p:maBarwe p:Bialy,
+        p:Czarny,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:BardzoDuzy ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Ardeidae ;
+    p:nazwaNaukowa "Ardea cinerea" ;
+    p:wystepujeW p:Mokradla,
+        p:WodySrodladowe ;
+    p:zywiSie p:DrobneSsaki,
+        p:Plazy,
+        p:Ryby ;
+    skos:altLabel "czapla"@pl ;
+    skos:exactMatch wd:Q25273 .
+
+p:czasObserwacji a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "czas obserwacji"@pl ;
+    rdfs:domain p:Obserwacja ;
+    rdfs:range xsd:dateTime .
+
+p:dzwoniec a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "dzwoniec"@pl ;
+    p:maBarwe p:Zielony,
+        p:Zolty ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Maly ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Fringillidae ;
+    p:nazwaNaukowa "Chloris chloris" ;
+    p:wystepujeW p:Las,
+        p:Miasto ;
+    p:zywiSie p:Nasiona ;
+    skos:altLabel "dzwoniec zwyczajny"@pl ;
+    skos:exactMatch wd:Q27075785 .
+
+p:gawron a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "gawron"@pl ;
+    p:maBarwe p:Czarny ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Corvidae ;
+    p:nazwaNaukowa "Corvus frugilegus" ;
+    p:wystepujeW p:Miasto,
+        p:TerenOtwarty ;
+    p:zywiSie p:Dzdzownice,
+        p:Nasiona,
+        p:Owady ;
+    skos:exactMatch wd:Q25386 .
+
+p:glowienka a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "głowienka"@pl ;
+    p:maBarwe p:Czarny,
+        p:Rudy,
+        p:Szary ;
+    p:maKategorieIUCN p:VU ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Anatidae ;
+    p:nazwaNaukowa "Aythya ferina" ;
+    p:wystepujeW p:WodySrodladowe ;
+    p:zywiSie p:BezkregowceWodne,
+        p:RoslinyZielone ;
+    skos:altLabel "głowienka zwyczajna"@pl ;
+    skos:exactMatch wd:Q26742 .
+
+p:grzywacz a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "grzywacz"@pl ;
+    p:maBarwe p:Bialy,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Columbidae ;
+    p:nazwaNaukowa "Columba palumbus" ;
+    p:wystepujeW p:Las,
+        p:Miasto,
+        p:TerenOtwarty ;
+    p:zywiSie p:Nasiona,
+        p:RoslinyZielone ;
+    skos:altLabel "gołąb grzywacz"@pl ;
+    skos:exactMatch wd:Q26026 .
+
+p:kormoran a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "kormoran"@pl ;
+    p:maBarwe p:Czarny ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:BardzoDuzy ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Phalacrocoracidae ;
+    p:nazwaNaukowa "Phalacrocorax carbo" ;
+    p:wystepujeW p:WodySrodladowe,
+        p:Wybrzeze ;
+    p:zywiSie p:Ryby ;
+    skos:altLabel "kormoran czarny"@pl,
+        "kormoran zwyczajny"@pl ;
+    skos:exactMatch wd:Q25440 .
+
+p:kruk a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "kruk"@pl ;
+    p:maBarwe p:Czarny ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:BardzoDuzy ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Corvidae ;
+    p:nazwaNaukowa "Corvus corax" ;
+    p:wystepujeW p:Las,
+        p:TerenOtwarty ;
+    p:zywiSie p:DrobneSsaki,
+        p:Owady,
+        p:Padlina ;
+    skos:altLabel "kruk zwyczajny"@pl ;
+    skos:exactMatch wd:Q25357 .
+
+p:kukulka a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "kukułka"@pl ;
+    p:maBarwe p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:Wedrowny ;
+    p:nalezyDoRodziny p:Cuculidae ;
+    p:nazwaNaukowa "Cuculus canorus" ;
+    p:wystepujeW p:Las,
+        p:Mokradla,
+        p:TerenOtwarty ;
+    p:zywiSie p:Owady ;
+    skos:altLabel "kukułka zwyczajna"@pl ;
+    skos:exactMatch wd:Q18845 .
+
+p:liczbaOsobnikow a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "liczba osobników"@pl ;
+    rdfs:domain p:Obserwacja ;
+    rdfs:range xsd:positiveInteger .
+
+p:liczbaZweryfikowanychZgloszen a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "liczba wcześniej zweryfikowanych zgłoszeń"@pl ;
+    rdfs:domain p:Obserwator ;
+    rdfs:range xsd:nonNegativeInteger .
+
+p:lokalizacjaPubliczna a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "lokalizacja publiczna"@pl ;
+    rdfs:comment "Kwadrat albo blok 5 na 5 km, który wolno opublikować. Wynik reguł z sekcji 8."@pl ;
+    rdfs:domain p:Obserwacja ;
+    rdfs:range xsd:string .
+
+p:maBarwe a owl:ObjectProperty ;
+    rdfs:label "ma barwę"@pl ;
+    rdfs:domain p:Gatunek ;
+    rdfs:range p:Barwa .
+
+p:maRozmiar a owl:FunctionalProperty,
+        owl:ObjectProperty ;
+    rdfs:label "ma wielkość"@pl ;
+    rdfs:domain p:Gatunek ;
+    rdfs:range p:KlasaRozmiaru .
+
+p:maSiedlisko a owl:ObjectProperty ;
+    rdfs:label "ma siedlisko"@pl ;
+    rdfs:domain p:Kwadrat ;
+    rdfs:range p:Siedlisko .
+
+p:mazurek a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "mazurek"@pl ;
+    p:maBarwe p:Bialy,
+        p:Brazowy,
+        p:Czarny ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Maly ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Passeridae ;
+    p:nazwaNaukowa "Passer montanus" ;
+    p:wystepujeW p:Miasto,
+        p:TerenOtwarty ;
+    p:zywiSie p:Nasiona,
+        p:Owady ;
+    skos:exactMatch wd:Q25968 .
+
+p:modraszka a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "modraszka"@pl ;
+    p:maBarwe p:Bialy,
+        p:Niebieski,
+        p:Zolty ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Maly ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Paridae ;
+    p:nazwaNaukowa "Cyanistes caeruleus" ;
+    p:wystepujeW p:Las,
+        p:Miasto ;
+    p:zywiSie p:Nasiona,
+        p:Owady ;
+    skos:altLabel "modraszka zwyczajna"@pl,
+        "sikora modra"@pl ;
+    skos:exactMatch wd:Q25404 .
+
+p:nazwaNaukowa a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "nazwa naukowa"@pl ;
+    rdfs:domain p:Gatunek ;
+    rdfs:range xsd:string .
+
+p:o01 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-01-10T09:15:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:gil ;
+    p:liczbaOsobnikow "4"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_03_04" ;
+    p:wKwadracie p:kw_03_04 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs01 .
+
+p:o02 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-01-10T09:40:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:jemioluszka ;
+    p:liczbaOsobnikow "30"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_03_04" ;
+    p:wKwadracie p:kw_03_04 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs01 .
+
+p:o03 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-01-12T12:05:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:kopciuszek ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_03_04" ;
+    p:powodWeryfikacji "poza sezonem" ;
+    p:wKwadracie p:kw_03_04 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs03 .
+
+p:o04 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-01-12T14:30:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:kopciuszek ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_03_04" ;
+    p:powodWeryfikacji "poza sezonem" ;
+    p:wKwadracie p:kw_03_04 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs01 .
+
+p:o05 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-02-03T11:00:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:bocian_bialy ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_06_05" ;
+    p:powodWeryfikacji "poza sezonem" ;
+    p:wKwadracie p:kw_06_05 ;
+    p:wykazanoZachowanie p:Przelot ;
+    p:wymagaWeryfikacji true ;
+    p:zgloszonaPrzez p:obs04 .
+
+p:o06 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-02-14T10:20:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:labedz_niemy ;
+    p:liczbaOsobnikow "6"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_08_06" ;
+    p:wKwadracie p:kw_08_06 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs02 .
+
+p:o07 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-02-14T10:25:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:gagol ;
+    p:liczbaOsobnikow "12"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_08_06" ;
+    p:wKwadracie p:kw_08_06 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs02 .
+
+p:o08 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-02-14T10:50:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:bielik ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_08_06" ;
+    p:powodWeryfikacji "gatunek wrażliwy" ;
+    p:wKwadracie p:kw_08_06 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs02 .
+
+p:o09 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-03-22T07:10:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:zuraw ;
+    p:liczbaOsobnikow "8"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_06_05" ;
+    p:wKwadracie p:kw_06_05 ;
+    p:wykazanoZachowanie p:Przelot ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs05 .
+
+p:o10 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-03-22T07:30:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:czajka ;
+    p:liczbaOsobnikow "15"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_06_05" ;
+    p:wKwadracie p:kw_06_05 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs05 .
+
+p:o11 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-04-18T06:15:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:skowronek ;
+    p:liczbaOsobnikow "3"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_05_05" ;
+    p:wKwadracie p:kw_05_05 ;
+    p:wykazanoZachowanie p:Spiew ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs05 .
+
+p:o12 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-04-18T06:40:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:dudek ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_05_05" ;
+    p:wKwadracie p:kw_05_05 ;
+    p:wykazanoZachowanie p:Spiew ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs05 .
+
+p:o13 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-04-25T05:10:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:gluszec ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "blok_3_2" ;
+    p:powodWeryfikacji "gatunek wrażliwy" ;
+    p:wKwadracie p:kw_15_14 ;
+    p:wykazanoZachowanie p:Tokowanie ;
+    p:wymagaWeryfikacji true ;
+    p:zgloszonaPrzez p:obs06 .
+
+p:o14 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-04-25T06:30:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:kos ;
+    p:liczbaOsobnikow "2"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_15_14" ;
+    p:wKwadracie p:kw_15_14 ;
+    p:wykazanoZachowanie p:Spiew ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs06 .
+
+p:o15 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-04-25T06:45:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:zieba ;
+    p:liczbaOsobnikow "5"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_15_14" ;
+    p:wKwadracie p:kw_15_14 ;
+    p:wykazanoZachowanie p:Spiew ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs06 .
+
+p:o16 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-05-09T08:00:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:orlik_krzykliwy ;
+    p:liczbaOsobnikow "2"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "blok_2_2" ;
+    p:powodWeryfikacji "gatunek wrażliwy" ;
+    p:wKwadracie p:kw_13_10 ;
+    p:wykazanoZachowanie p:Gniazdo ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs01 .
+
+p:o17 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-05-09T08:30:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:dzieciol_duzy ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_13_10" ;
+    p:wKwadracie p:kw_13_10 ;
+    p:wykazanoZachowanie p:KarmienieMlodych ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs01 .
+
+p:o18 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-05-09T09:10:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:sojka ;
+    p:liczbaOsobnikow "2"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_12_10" ;
+    p:wKwadracie p:kw_12_10 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs01 .
+
+p:o19 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-05-16T21:30:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:wodniczka ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_06_05" ;
+    p:powodWeryfikacji "gatunek wrażliwy" ;
+    p:wKwadracie p:kw_06_05 ;
+    p:wykazanoZachowanie p:Spiew ;
+    p:wymagaWeryfikacji true ;
+    p:zgloszonaPrzez p:obs03 .
+
+p:o20 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-05-16T21:50:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:trzcinniczek ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_07_06" ;
+    p:wKwadracie p:kw_07_06 ;
+    p:wykazanoZachowanie p:Spiew ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs03 .
+
+p:o21 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-05-30T07:00:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:perkoz_dwuczuby ;
+    p:liczbaOsobnikow "2"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_08_06" ;
+    p:wKwadracie p:kw_08_06 ;
+    p:wykazanoZachowanie p:Gniazdo ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs02 .
+
+p:o22 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-05-30T07:20:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:rybitwa_rzeczna ;
+    p:liczbaOsobnikow "4"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_08_06" ;
+    p:wKwadracie p:kw_08_06 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs02 .
+
+p:o23 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-05-30T09:00:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:bielik ;
+    p:liczbaOsobnikow "2"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "blok_3_2" ;
+    p:powodWeryfikacji "gatunek wrażliwy" ;
+    p:wKwadracie p:kw_16_14 ;
+    p:wykazanoZachowanie p:Gniazdo ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs02 .
+
+p:o24 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-05-30T09:30:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:zimorodek ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_16_14" ;
+    p:wKwadracie p:kw_16_14 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs02 .
+
+p:o25 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-06-12T17:00:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:jemioluszka ;
+    p:liczbaOsobnikow "2"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_03_04" ;
+    p:powodWeryfikacji "poza sezonem" ;
+    p:wKwadracie p:kw_03_04 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji true ;
+    p:zgloszonaPrzez p:obs04 .
+
+p:o26 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-06-12T17:10:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:jerzyk ;
+    p:liczbaOsobnikow "20"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_03_04" ;
+    p:wKwadracie p:kw_03_04 ;
+    p:wykazanoZachowanie p:Przelot ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs04 .
+
+p:o27 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-06-12T17:20:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:dymowka ;
+    p:liczbaOsobnikow "3"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_03_04" ;
+    p:powodWeryfikacji "poza siedliskiem" ;
+    p:wKwadracie p:kw_03_04 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji true ;
+    p:zgloszonaPrzez p:obs04 .
+
+p:o28 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-06-20T08:00:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:bocian_bialy ;
+    p:liczbaOsobnikow "2"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_06_05" ;
+    p:wKwadracie p:kw_06_05 ;
+    p:wykazanoZachowanie p:Gniazdo ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs05 .
+
+p:o29 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-06-20T08:30:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:turkawka ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_05_05" ;
+    p:powodWeryfikacji "gatunek wrażliwy" ;
+    p:wKwadracie p:kw_05_05 ;
+    p:wykazanoZachowanie p:Spiew ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs05 .
+
+p:o30 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-07-04T10:00:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:ges_bialoczelna ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_07_06" ;
+    p:powodWeryfikacji "poza sezonem" ;
+    p:wKwadracie p:kw_07_06 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji true ;
+    p:zgloszonaPrzez p:obs06 .
+
+p:o31 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-07-04T10:15:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:krzyzowka ;
+    p:liczbaOsobnikow "9"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_07_06" ;
+    p:wKwadracie p:kw_07_06 ;
+    p:wykazanoZachowanie p:KarmienieMlodych ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs06 .
+
+p:o32 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-08-15T12:00:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:pustulka ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_10_02" ;
+    p:wKwadracie p:kw_10_02 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs03 .
+
+p:o33 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-08-15T12:20:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:myszolow ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_10_02" ;
+    p:wKwadracie p:kw_10_02 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs03 .
+
+p:o34 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-09-19T07:45:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:zuraw ;
+    p:liczbaOsobnikow "120"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_06_05" ;
+    p:wKwadracie p:kw_06_05 ;
+    p:wykazanoZachowanie p:Przelot ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs05 .
+
+p:o35 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-10-03T09:00:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:kwiczol ;
+    p:liczbaOsobnikow "40"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_05_05" ;
+    p:wKwadracie p:kw_05_05 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs01 .
+
+p:o36 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-10-24T11:30:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:myszolow_wlochaty ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_10_02" ;
+    p:wKwadracie p:kw_10_02 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs02 .
+
+p:o37 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-11-07T10:00:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:lyska ;
+    p:liczbaOsobnikow "25"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_04_04" ;
+    p:wKwadracie p:kw_04_04 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs04 .
+
+p:o38 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-11-07T10:10:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:smieszka ;
+    p:liczbaOsobnikow "40"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_04_04" ;
+    p:wKwadracie p:kw_04_04 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs04 .
+
+p:o39 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-12-05T13:00:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:dudek ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_05_05" ;
+    p:powodWeryfikacji "poza sezonem" ;
+    p:wKwadracie p:kw_05_05 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji true ;
+    p:zgloszonaPrzez p:obs03 .
+
+p:o40 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-12-05T14:00:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:dzieciol_zielony ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_12_10" ;
+    p:wKwadracie p:kw_12_10 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs01 .
+
+p:o41 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-12-12T09:00:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:bogatka ;
+    p:liczbaOsobnikow "6"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_03_04" ;
+    p:wKwadracie p:kw_03_04 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs06 .
+
+p:o42 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-12-12T09:05:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:kowalik ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_03_04" ;
+    p:wKwadracie p:kw_03_04 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs06 .
+
+p:o43 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-03-08T10:30:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:krogulec ;
+    p:liczbaOsobnikow "1"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_04_04" ;
+    p:wKwadracie p:kw_04_04 ;
+    p:wykazanoZachowanie p:Zerowanie ;
+    p:wymagaWeryfikacji false ;
+    p:zgloszonaPrzez p:obs04 .
+
+p:o44 a p:Obserwacja,
+        owl:NamedIndividual ;
+    p:czasObserwacji "2026-03-14T15:00:00"^^xsd:dateTime ;
+    p:dotyczyGatunku p:ges_bialoczelna ;
+    p:liczbaOsobnikow "2"^^xsd:positiveInteger ;
+    p:lokalizacjaPubliczna "kw_07_06" ;
+    p:powodWeryfikacji "lęg gatunku niegniazdującego" ;
+    p:wKwadracie p:kw_07_06 ;
+    p:wykazanoZachowanie p:Gniazdo ;
+    p:wymagaWeryfikacji true ;
+    p:zgloszonaPrzez p:obs06 .
+
+p:obserwowalGatunek a owl:ObjectProperty ;
+    rdfs:label "obserwował gatunek"@pl ;
+    rdfs:domain p:Obserwator ;
+    rdfs:range p:Gatunek ;
+    owl:propertyChainAxiom ( p:zglosil p:dotyczyGatunku ) .
+
+p:pliszka_siwa a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "pliszka siwa"@pl ;
+    p:maBarwe p:Bialy,
+        p:Czarny,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Sredni ;
+    p:maStatusPobytu p:Wedrowny ;
+    p:nalezyDoRodziny p:Motacillidae ;
+    p:nazwaNaukowa "Motacilla alba" ;
+    p:wystepujeW p:Miasto,
+        p:TerenOtwarty,
+        p:WodySrodladowe ;
+    p:zywiSie p:Owady ;
+    skos:altLabel "pliszka"@pl ;
+    skos:exactMatch wd:Q25399 .
+
+p:powodWeryfikacji a owl:DatatypeProperty ;
+    rdfs:label "powód weryfikacji"@pl ;
+    rdfs:domain p:Obserwacja ;
+    rdfs:range xsd:string .
+
+p:puszczyk a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "puszczyk"@pl ;
+    p:maBarwe p:Brazowy,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Strigidae ;
+    p:nazwaNaukowa "Strix aluco" ;
+    p:wystepujeW p:Las,
+        p:Miasto ;
+    p:zywiSie p:DrobneSsaki,
+        p:Ptaki ;
+    skos:altLabel "puszczyk zwyczajny"@pl ;
+    skos:exactMatch wd:Q25756 .
+
+p:rudzik a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "rudzik"@pl ;
+    p:maBarwe p:Brazowy,
+        p:Rudy ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Maly ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Muscicapidae ;
+    p:nazwaNaukowa "Erithacus rubecula" ;
+    p:wystepujeW p:Las,
+        p:Miasto ;
+    p:zywiSie p:Owady,
+        p:Owoce ;
+    skos:altLabel "rudzik zwyczajny"@pl ;
+    skos:exactMatch wd:Q25334 .
+
+p:sierpowka a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "sierpówka"@pl ;
+    p:maBarwe p:Czarny,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Columbidae ;
+    p:nazwaNaukowa "Streptopelia decaocto" ;
+    p:wystepujeW p:Miasto ;
+    p:zywiSie p:Nasiona ;
+    skos:altLabel "synogarlica turecka"@pl ;
+    skos:exactMatch wd:Q54696 .
+
+p:sroka a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "sroka"@pl ;
+    p:maBarwe p:Bialy,
+        p:Czarny ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Corvidae ;
+    p:nazwaNaukowa "Pica pica" ;
+    p:wystepujeW p:Miasto,
+        p:TerenOtwarty ;
+    p:zywiSie p:Nasiona,
+        p:Owady,
+        p:Padlina,
+        p:Ptaki ;
+    skos:altLabel "sroka zwyczajna"@pl ;
+    skos:exactMatch wd:Q25307 .
+
+p:szczygiel a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "szczygieł"@pl ;
+    p:maBarwe p:Bialy,
+        p:Czarny,
+        p:Czerwony,
+        p:Zolty ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Maly ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Fringillidae ;
+    p:nazwaNaukowa "Carduelis carduelis" ;
+    p:wystepujeW p:Miasto,
+        p:TerenOtwarty ;
+    p:zywiSie p:Nasiona ;
+    skos:altLabel "szczygieł zwyczajny"@pl ;
+    skos:exactMatch wd:Q25418 .
+
+p:szpak a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "szpak"@pl ;
+    p:maBarwe p:Czarny ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Sredni ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Sturnidae ;
+    p:nazwaNaukowa "Sturnus vulgaris" ;
+    p:wystepujeW p:Miasto,
+        p:TerenOtwarty ;
+    p:zywiSie p:Dzdzownice,
+        p:Owady,
+        p:Owoce ;
+    skos:altLabel "szpak zwyczajny"@pl ;
+    skos:exactMatch wd:Q25469 .
+
+p:uszatka a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "uszatka"@pl ;
+    p:maBarwe p:Brazowy,
+        p:Rudy ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Strigidae ;
+    p:nazwaNaukowa "Asio otus" ;
+    p:wystepujeW p:Las,
+        p:TerenOtwarty ;
+    p:zywiSie p:DrobneSsaki ;
+    skos:altLabel "sowa uszata"@pl,
+        "uszatka zwyczajna"@pl ;
+    skos:exactMatch wd:Q25384 .
+
+p:wKwadracie a owl:FunctionalProperty,
+        owl:ObjectProperty ;
+    rdfs:label "w kwadracie"@pl ;
+    rdfs:domain p:Obserwacja ;
+    rdfs:range p:Kwadrat .
+
+p:wrobel a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "wróbel"@pl ;
+    p:maBarwe p:Brazowy,
+        p:Czarny,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Maly ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Passeridae ;
+    p:nazwaNaukowa "Passer domesticus" ;
+    p:wystepujeW p:Miasto,
+        p:TerenOtwarty ;
+    p:zywiSie p:Nasiona,
+        p:Owady ;
+    skos:altLabel "wróbel domowy"@pl,
+        "wróbel zwyczajny"@pl ;
+    skos:exactMatch wd:Q14683 .
+
+p:wrona_siwa a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "wrona siwa"@pl ;
+    p:maBarwe p:Czarny,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Corvidae ;
+    p:nazwaNaukowa "Corvus cornix" ;
+    p:wystepujeW p:Miasto,
+        p:TerenOtwarty ;
+    p:zywiSie p:Nasiona,
+        p:Owady,
+        p:Padlina,
+        p:Ptaki ;
+    skos:altLabel "wrona"@pl ;
+    skos:exactMatch wd:Q25405 .
+
+p:wspolrzednaX a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "współrzędna x kwadratu"@pl ;
+    rdfs:domain p:Kwadrat ;
+    rdfs:range xsd:integer .
+
+p:wspolrzednaY a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "współrzędna y kwadratu"@pl ;
+    rdfs:domain p:Kwadrat ;
+    rdfs:range xsd:integer .
+
+p:wymagaWeryfikacji a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "wymaga weryfikacji"@pl ;
+    rdfs:comment "Wynik reguł z sekcji 8, zapisywany do grafu."@pl ;
+    rdfs:domain p:Obserwacja ;
+    rdfs:range xsd:boolean .
+
+p:Accipitriformes a p:RzadPtakowDrapieznych,
+        owl:NamedIndividual ;
+    rdfs:label "szponiaste"@pl .
+
+p:Alaudidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "skowronkowate"@pl ;
+    p:rodzinaWRzedzie p:Passeriformes .
+
+p:Alcedinidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "zimorodki"@pl ;
+    p:rodzinaWRzedzie p:Coraciiformes .
+
+p:Anseriformes a p:Rzad,
+        owl:NamedIndividual ;
+    rdfs:label "blaszkodziobe"@pl .
+
+p:Apodidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "jerzykowate"@pl ;
+    p:rodzinaWRzedzie p:Apodiformes .
+
+p:Apodiformes a p:Rzad,
+        owl:NamedIndividual ;
+    rdfs:label "jerzykowe"@pl .
+
+p:Ardeidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "czaplowate"@pl ;
+    p:rodzinaWRzedzie p:Pelecaniformes .
+
+p:Bombycillidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "jemiołuszki"@pl ;
+    p:rodzinaWRzedzie p:Passeriformes .
+
+p:Bucerotiformes a p:Rzad,
+        owl:NamedIndividual ;
+    rdfs:label "dzioborożcowe"@pl .
+
+p:CR a p:KategoriaZagrozenia,
+        owl:NamedIndividual ;
+    rdfs:label "krytycznie zagrożony"@pl .
+
+p:Charadriidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "sieweczkowate"@pl ;
+    p:rodzinaWRzedzie p:Charadriiformes .
+
+p:Ciconiidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "bocianowate"@pl ;
+    p:rodzinaWRzedzie p:Ciconiiformes .
+
+p:Ciconiiformes a p:Rzad,
+        owl:NamedIndividual ;
+    rdfs:label "bocianowe"@pl .
+
+p:Columbiformes a p:Rzad,
+        owl:NamedIndividual ;
+    rdfs:label "gołębiowe"@pl .
+
+p:Coraciiformes a p:Rzad,
+        owl:NamedIndividual ;
+    rdfs:label "kraskowe"@pl .
+
+p:Cuculidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "kukułkowate"@pl ;
+    p:rodzinaWRzedzie p:Cuculiformes .
+
+p:Cuculiformes a p:Rzad,
+        owl:NamedIndividual ;
+    rdfs:label "kukułkowe"@pl .
+
+p:EN a p:KategoriaZagrozenia,
+        owl:NamedIndividual ;
+    rdfs:label "zagrożony"@pl .
+
+p:Falconidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "sokołowate"@pl ;
+    p:rodzinaWRzedzie p:Falconiformes .
+
+p:Falconiformes a p:RzadPtakowDrapieznych,
+        owl:NamedIndividual ;
+    rdfs:label "sokołowe"@pl .
+
+p:Galliformes a p:Rzad,
+        owl:NamedIndividual ;
+    rdfs:label "grzebiące"@pl .
+
+p:Gruidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "żurawie"@pl ;
+    p:rodzinaWRzedzie p:Gruiformes .
+
+p:Hirundinidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "jaskółkowate"@pl ;
+    p:rodzinaWRzedzie p:Passeriformes .
+
+p:Motacillidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "pliszkowate"@pl ;
+    p:rodzinaWRzedzie p:Passeriformes .
+
+p:Pelecaniformes a p:Rzad,
+        owl:NamedIndividual ;
+    rdfs:label "pelikanowe"@pl .
+
+p:Phalacrocoracidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "kormorany"@pl ;
+    p:rodzinaWRzedzie p:Suliformes .
+
+p:Piciformes a p:Rzad,
+        owl:NamedIndividual ;
+    rdfs:label "dzięciołowe"@pl .
+
+p:Podicipedidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "perkozy"@pl ;
+    p:rodzinaWRzedzie p:Podicipediformes .
+
+p:Podicipediformes a p:Rzad,
+        owl:NamedIndividual ;
+    rdfs:label "perkozowe"@pl .
+
+p:Rallidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "chruściele"@pl ;
+    p:rodzinaWRzedzie p:Gruiformes .
+
+p:Sittidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "kowaliki"@pl ;
+    p:rodzinaWRzedzie p:Passeriformes .
+
+p:Strigiformes a p:RzadPtakowDrapieznych,
+        owl:NamedIndividual ;
+    rdfs:label "sowy"@pl .
+
+p:Sturnidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "szpakowate"@pl ;
+    p:rodzinaWRzedzie p:Passeriformes .
+
+p:Suliformes a p:Rzad,
+        owl:NamedIndividual ;
+    rdfs:label "głuptakowe"@pl .
+
+p:Tokowanie a p:ZachowanieLegowe,
+        owl:NamedIndividual ;
+    rdfs:label "tokowanie"@pl .
+
+p:Upupidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "dudki"@pl ;
+    p:rodzinaWRzedzie p:Bucerotiformes .
+
+p:bogatka a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "bogatka"@pl ;
+    p:maBarwe p:Bialy,
+        p:Czarny,
+        p:Zielony,
+        p:Zolty ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Maly ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Paridae ;
+    p:nazwaNaukowa "Parus major" ;
+    p:wystepujeW p:Las,
+        p:Miasto ;
+    p:zywiSie p:Nasiona,
+        p:Owady ;
+    skos:altLabel "bogatka zwyczajna"@pl,
+        "sikora bogatka"@pl,
+        "sikorka"@pl ;
+    skos:exactMatch wd:Q25485 .
+
+p:czajka a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "czajka"@pl ;
+    p:maBarwe p:Bialy,
+        p:Czarny ;
+    p:maKategorieIUCN p:NT ;
+    p:maRozmiar p:Sredni ;
+    p:maStatusPobytu p:Wedrowny ;
+    p:nalezyDoRodziny p:Charadriidae ;
+    p:nazwaNaukowa "Vanellus vanellus" ;
+    p:wystepujeW p:Mokradla,
+        p:TerenOtwarty ;
+    p:zywiSie p:Dzdzownice,
+        p:Owady ;
+    skos:altLabel "czajka zwyczajna"@pl ;
+    skos:exactMatch wd:Q25392 .
+
+p:dymowka a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "dymówka"@pl ;
+    p:maBarwe p:Bialy,
+        p:Czarny,
+        p:Rudy ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Sredni ;
+    p:maStatusPobytu p:Wedrowny ;
+    p:nalezyDoRodziny p:Hirundinidae ;
+    p:nazwaNaukowa "Hirundo rustica" ;
+    p:wystepujeW p:TerenOtwarty ;
+    p:zywiSie p:Owady ;
+    skos:altLabel "jaskółka"@pl,
+        "jaskółka dymówka"@pl ;
+    skos:exactMatch wd:Q25429 .
+
+p:dzieciol_duzy a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "dzięcioł duży"@pl ;
+    p:maBarwe p:Bialy,
+        p:Czarny,
+        p:Czerwony ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Sredni ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Picidae ;
+    p:nazwaNaukowa "Dendrocopos major" ;
+    p:wystepujeW p:Las,
+        p:Miasto ;
+    p:zywiSie p:Nasiona,
+        p:Owady ;
+    skos:altLabel "dzięcioł pstry duży"@pl ;
+    skos:exactMatch wd:Q26209 .
+
+p:dzieciol_zielony a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "dzięcioł zielony"@pl ;
+    p:maBarwe p:Czerwony,
+        p:Zielony,
+        p:Zolty ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Picidae ;
+    p:nazwaNaukowa "Picus viridis" ;
+    p:wystepujeW p:Las,
+        p:Miasto ;
+    p:zywiSie p:Owady ;
+    skos:exactMatch wd:Q166171 .
+
+p:gagol a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "gągoł"@pl ;
+    p:maBarwe p:Bialy,
+        p:Czarny ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Anatidae ;
+    p:nazwaNaukowa "Bucephala clangula" ;
+    p:wystepujeW p:WodySrodladowe,
+        p:Wybrzeze ;
+    p:zywiSie p:BezkregowceWodne ;
+    skos:altLabel "gągoł zwyczajny"@pl ;
+    skos:exactMatch wd:Q29865 .
+
+p:gil a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "gil"@pl ;
+    p:maBarwe p:Czarny,
+        p:Czerwony,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Maly ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Fringillidae ;
+    p:nazwaNaukowa "Pyrrhula pyrrhula" ;
+    p:wystepujeW p:Las,
+        p:Miasto ;
+    p:zywiSie p:Nasiona ;
+    skos:altLabel "gil zwyczajny"@pl,
+        "gile"@pl ;
+    skos:exactMatch wd:Q25382 .
+
+p:gluszec a p:GatunekOWrazliwejLokalizacji,
+        owl:NamedIndividual ;
+    rdfs:label "głuszec"@pl ;
+    p:maBarwe p:Brazowy,
+        p:Czarny ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:BardzoDuzy ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Phasianidae ;
+    p:nazwaNaukowa "Tetrao urogallus" ;
+    p:wystepujeW p:Las ;
+    p:zywiSie p:Owoce,
+        p:RoslinyZielone ;
+    skos:altLabel "głuszec zwyczajny"@pl ;
+    skos:exactMatch wd:Q129059 .
+
+p:jerzyk a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "jerzyk"@pl ;
+    p:maBarwe p:Czarny ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Sredni ;
+    p:maStatusPobytu p:Wedrowny ;
+    p:nalezyDoRodziny p:Apodidae ;
+    p:nazwaNaukowa "Apus apus" ;
+    p:wystepujeW p:Miasto ;
+    p:zywiSie p:Owady ;
+    skos:altLabel "jerzyk zwyczajny"@pl ;
+    skos:exactMatch wd:Q25377 .
+
+p:kos a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "kos"@pl ;
+    p:maBarwe p:Brazowy,
+        p:Czarny ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Sredni ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Turdidae ;
+    p:nazwaNaukowa "Turdus merula" ;
+    p:wystepujeW p:Las,
+        p:Miasto ;
+    p:zywiSie p:Dzdzownice,
+        p:Owady,
+        p:Owoce ;
+    skos:altLabel "kos zwyczajny"@pl ;
+    skos:exactMatch wd:Q25234 .
+
+p:kowalik a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "kowalik"@pl ;
+    p:maBarwe p:Bialy,
+        p:Niebieski,
+        p:Rudy ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Maly ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Sittidae ;
+    p:nazwaNaukowa "Sitta europaea" ;
+    p:wystepujeW p:Las,
+        p:Miasto ;
+    p:zywiSie p:Nasiona,
+        p:Owady ;
+    skos:altLabel "kowalik zwyczajny"@pl ;
+    skos:exactMatch wd:Q156767 .
+
+p:krogulec a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "krogulec"@pl ;
+    p:maBarwe p:Bialy,
+        p:Rudy,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Accipitridae ;
+    p:nazwaNaukowa "Accipiter nisus" ;
+    p:wystepujeW p:Las,
+        p:Miasto ;
+    p:zywiSie p:Ptaki ;
+    skos:altLabel "krogulec zwyczajny"@pl ;
+    skos:exactMatch wd:Q25380 .
+
+p:krzyzowka a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "krzyżówka"@pl ;
+    p:maBarwe p:Brazowy,
+        p:Szary,
+        p:Zielony ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Anatidae ;
+    p:nazwaNaukowa "Anas platyrhynchos" ;
+    p:wystepujeW p:Miasto,
+        p:WodySrodladowe ;
+    p:zywiSie p:BezkregowceWodne,
+        p:Nasiona,
+        p:RoslinyZielone ;
+    skos:altLabel "dzika kaczka"@pl,
+        "kaczka krzyżówka"@pl ;
+    skos:exactMatch wd:Q25348 .
+
+p:kwiczol a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "kwiczoł"@pl ;
+    p:maBarwe p:Brazowy,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Sredni ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Turdidae ;
+    p:nazwaNaukowa "Turdus pilaris" ;
+    p:wystepujeW p:Las,
+        p:Miasto,
+        p:TerenOtwarty ;
+    p:zywiSie p:Dzdzownice,
+        p:Owady,
+        p:Owoce ;
+    skos:exactMatch wd:Q25777 .
+
+p:labedz_niemy a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "łabędź niemy"@pl ;
+    p:maBarwe p:Bialy ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:BardzoDuzy ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Anatidae ;
+    p:nazwaNaukowa "Cygnus olor" ;
+    p:wystepujeW p:WodySrodladowe,
+        p:Wybrzeze ;
+    p:zywiSie p:RoslinyZielone ;
+    skos:altLabel "łabędź"@pl ;
+    skos:exactMatch wd:Q25402 .
+
+p:lyska a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "łyska"@pl ;
+    p:maBarwe p:Bialy,
+        p:Czarny ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Rallidae ;
+    p:nazwaNaukowa "Fulica atra" ;
+    p:wystepujeW p:WodySrodladowe ;
+    p:zywiSie p:BezkregowceWodne,
+        p:RoslinyZielone ;
+    skos:altLabel "łyska zwyczajna"@pl ;
+    skos:exactMatch wd:Q25376 .
+
+p:maKategorieIUCN a owl:FunctionalProperty,
+        owl:ObjectProperty ;
+    rdfs:label "ma kategorię IUCN"@pl ;
+    rdfs:domain p:Gatunek ;
+    rdfs:range p:KategoriaIUCN .
+
+p:myszolow a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "myszołów"@pl ;
+    p:maBarwe p:Bialy,
+        p:Brazowy ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Accipitridae ;
+    p:nazwaNaukowa "Buteo buteo" ;
+    p:wystepujeW p:Las,
+        p:TerenOtwarty ;
+    p:zywiSie p:DrobneSsaki,
+        p:Plazy ;
+    skos:altLabel "myszołów zwyczajny"@pl ;
+    skos:exactMatch wd:Q25385 .
+
+p:myszolow_wlochaty a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "myszołów włochaty"@pl ;
+    p:maBarwe p:Bialy,
+        p:Brazowy ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:GoscZimowy ;
+    p:nalezyDoRodziny p:Accipitridae ;
+    p:nazwaNaukowa "Buteo lagopus" ;
+    p:wystepujeW p:TerenOtwarty ;
+    p:zywiSie p:DrobneSsaki ;
+    skos:altLabel "włochaty"@pl ;
+    skos:exactMatch wd:Q26407 .
+
+p:nalezyDoRodziny a owl:FunctionalProperty,
+        owl:ObjectProperty ;
+    rdfs:label "należy do rodziny"@pl ;
+    rdfs:domain p:Gatunek ;
+    rdfs:range p:Rodzina .
+
+p:nalezyDoRzedu a owl:ObjectProperty ;
+    rdfs:label "należy do rzędu"@pl ;
+    rdfs:domain p:Gatunek ;
+    rdfs:range p:Rzad ;
+    owl:propertyChainAxiom ( p:nalezyDoRodziny p:rodzinaWRzedzie ) .
+
+p:orlik_krzykliwy a p:GatunekOWrazliwejLokalizacji,
+        owl:NamedIndividual ;
+    rdfs:label "orlik krzykliwy"@pl ;
+    p:maBarwe p:Brazowy ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:Wedrowny ;
+    p:nalezyDoRodziny p:Accipitridae ;
+    p:nazwaNaukowa "Clanga pomarina" ;
+    p:wystepujeW p:Las,
+        p:TerenOtwarty ;
+    p:zywiSie p:DrobneSsaki,
+        p:Plazy ;
+    skos:altLabel "orlik"@pl ;
+    skos:exactMatch wd:Q232523 .
+
+p:perkoz_dwuczuby a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "perkoz dwuczuby"@pl ;
+    p:maBarwe p:Bialy,
+        p:Brazowy,
+        p:Rudy ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:Wedrowny ;
+    p:nalezyDoRodziny p:Podicipedidae ;
+    p:nazwaNaukowa "Podiceps cristatus" ;
+    p:wystepujeW p:WodySrodladowe ;
+    p:zywiSie p:Ryby ;
+    skos:altLabel "perkoz"@pl ;
+    skos:exactMatch wd:Q25422 .
+
+p:pustulka a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "pustułka"@pl ;
+    p:maBarwe p:Rudy,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Falconidae ;
+    p:nazwaNaukowa "Falco tinnunculus" ;
+    p:wystepujeW p:Miasto,
+        p:TerenOtwarty ;
+    p:zywiSie p:DrobneSsaki,
+        p:Owady ;
+    skos:altLabel "pustułka zwyczajna"@pl ;
+    skos:exactMatch wd:Q26490 .
+
+p:rodzinaWRzedzie a owl:FunctionalProperty,
+        owl:ObjectProperty ;
+    rdfs:label "rodzina w rzędzie"@pl ;
+    rdfs:domain p:Rodzina ;
+    rdfs:range p:Rzad .
+
+p:rybitwa_rzeczna a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "rybitwa rzeczna"@pl ;
+    p:maBarwe p:Bialy,
+        p:Czarny,
+        p:Czerwony,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:Wedrowny ;
+    p:nalezyDoRodziny p:Laridae ;
+    p:nazwaNaukowa "Sterna hirundo" ;
+    p:wystepujeW p:WodySrodladowe,
+        p:Wybrzeze ;
+    p:zywiSie p:Ryby ;
+    skos:altLabel "rybitwa"@pl ;
+    skos:exactMatch wd:Q18875 .
+
+p:skowronek a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "skowronek"@pl ;
+    p:maBarwe p:Brazowy ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Sredni ;
+    p:maStatusPobytu p:Wedrowny ;
+    p:nalezyDoRodziny p:Alaudidae ;
+    p:nazwaNaukowa "Alauda arvensis" ;
+    p:wystepujeW p:TerenOtwarty ;
+    p:zywiSie p:Nasiona,
+        p:Owady ;
+    skos:altLabel "skowronek polny"@pl,
+        "skowronek zwyczajny"@pl ;
+    skos:exactMatch wd:Q25961 .
+
+p:smieszka a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "mewa śmieszka"@pl ;
+    p:maBarwe p:Bialy,
+        p:Czarny,
+        p:Czerwony,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Laridae ;
+    p:nazwaNaukowa "Chroicocephalus ridibundus" ;
+    p:wystepujeW p:Miasto,
+        p:WodySrodladowe,
+        p:Wybrzeze ;
+    p:zywiSie p:Dzdzownice,
+        p:Owady,
+        p:Ryby ;
+    skos:altLabel "śmieszka"@pl ;
+    skos:exactMatch wd:Q25634 .
+
+p:sojka a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "sójka"@pl ;
+    p:maBarwe p:Bialy,
+        p:Brazowy,
+        p:Czarny,
+        p:Niebieski ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Duzy ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Corvidae ;
+    p:nazwaNaukowa "Garrulus glandarius" ;
+    p:wystepujeW p:Las,
+        p:Miasto ;
+    p:zywiSie p:Nasiona,
+        p:Owady,
+        p:Ptaki ;
+    skos:altLabel "sójka zwyczajna"@pl ;
+    skos:exactMatch wd:Q25354 .
+
+p:trzcinniczek a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "trzcinniczek"@pl ;
+    p:maBarwe p:Brazowy ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Maly ;
+    p:maStatusPobytu p:Wedrowny ;
+    p:nalezyDoRodziny p:Acrocephalidae ;
+    p:nazwaNaukowa "Acrocephalus scirpaceus" ;
+    p:wystepujeW p:Mokradla ;
+    p:zywiSie p:Owady ;
+    skos:altLabel "trzcinniczek zwyczajny"@pl ;
+    skos:exactMatch wd:Q159080 .
+
+p:turkawka a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "turkawka"@pl ;
+    p:maBarwe p:Czarny,
+        p:Rudy,
+        p:Szary ;
+    p:maKategorieIUCN p:VU ;
+    p:maRozmiar p:Sredni ;
+    p:maStatusPobytu p:Wedrowny ;
+    p:nalezyDoRodziny p:Columbidae ;
+    p:nazwaNaukowa "Streptopelia turtur" ;
+    p:wystepujeW p:Las,
+        p:TerenOtwarty ;
+    p:zywiSie p:Nasiona ;
+    skos:altLabel "turkawka zwyczajna"@pl ;
+    skos:exactMatch wd:Q168514 .
+
+p:wodniczka a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "wodniczka"@pl ;
+    p:maBarwe p:Brazowy ;
+    p:maKategorieIUCN p:VU ;
+    p:maRozmiar p:Maly ;
+    p:maStatusPobytu p:Wedrowny ;
+    p:nalezyDoRodziny p:Acrocephalidae ;
+    p:nazwaNaukowa "Acrocephalus paludicola" ;
+    p:wystepujeW p:Mokradla ;
+    p:zywiSie p:Owady ;
+    skos:exactMatch wd:Q242599 .
+
+p:wykazanoZachowanie a owl:ObjectProperty ;
+    rdfs:label "wykazano zachowanie"@pl ;
+    rdfs:domain p:Obserwacja ;
+    rdfs:range p:Zachowanie .
+
+p:wystepujeW a owl:ObjectProperty ;
+    rdfs:label "występuje w"@pl ;
+    rdfs:domain p:Gatunek ;
+    rdfs:range p:Siedlisko .
+
+p:zglosil a owl:ObjectProperty ;
+    rdfs:label "zgłosił"@pl ;
+    owl:inverseOf p:zgloszonaPrzez .
+
+p:zgloszonaPrzez a owl:FunctionalProperty,
+        owl:ObjectProperty ;
+    rdfs:label "zgłoszona przez"@pl ;
+    rdfs:domain p:Obserwacja ;
+    rdfs:range p:Obserwator .
+
+p:zieba a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "zięba"@pl ;
+    p:maBarwe p:Bialy,
+        p:Rudy,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Maly ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Fringillidae ;
+    p:nazwaNaukowa "Fringilla coelebs" ;
+    p:wystepujeW p:Las,
+        p:Miasto ;
+    p:zywiSie p:Nasiona,
+        p:Owady ;
+    skos:altLabel "zięba zwyczajna"@pl ;
+    skos:exactMatch wd:Q25383 .
+
+p:zimorodek a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "zimorodek"@pl ;
+    p:maBarwe p:Niebieski,
+        p:Rudy ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Sredni ;
+    p:maStatusPobytu p:CzesciowoWedrowny ;
+    p:nalezyDoRodziny p:Alcedinidae ;
+    p:nazwaNaukowa "Alcedo atthis" ;
+    p:wystepujeW p:WodySrodladowe ;
+    p:zywiSie p:Ryby ;
+    skos:altLabel "zimorodek zwyczajny"@pl ;
+    skos:exactMatch wd:Q79915 .
+
+p:zywiSie a owl:ObjectProperty ;
+    rdfs:label "żywi się"@pl ;
+    rdfs:domain p:Gatunek ;
+    rdfs:range p:Pokarm .
+
+p:Acrocephalidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "trzciniaki"@pl ;
+    p:rodzinaWRzedzie p:Passeriformes .
+
+p:Charadriiformes a p:Rzad,
+        owl:NamedIndividual ;
+    rdfs:label "siewkowe"@pl .
+
+p:Gruiformes a p:Rzad,
+        owl:NamedIndividual ;
+    rdfs:label "żurawiowe"@pl .
+
+p:KarmienieMlodych a p:ZachowanieLegowe,
+        owl:NamedIndividual ;
+    rdfs:label "karmienie młodych"@pl .
+
+p:Laridae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "mewowate"@pl ;
+    p:rodzinaWRzedzie p:Charadriiformes .
+
+p:Muscicapidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "muchołówkowate"@pl ;
+    p:rodzinaWRzedzie p:Passeriformes .
+
+p:NT a p:KategoriaIUCN,
+        owl:NamedIndividual ;
+    rdfs:label "bliski zagrożenia"@pl .
+
+p:Paridae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "sikory"@pl ;
+    p:rodzinaWRzedzie p:Passeriformes .
+
+p:Passeridae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "wróblowate"@pl ;
+    p:rodzinaWRzedzie p:Passeriformes .
+
+p:Phasianidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "kurowate"@pl ;
+    p:rodzinaWRzedzie p:Galliformes .
+
+p:Picidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "dzięciołowate"@pl ;
+    p:rodzinaWRzedzie p:Piciformes .
+
+p:Strigidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "puszczykowate"@pl ;
+    p:rodzinaWRzedzie p:Strigiformes .
+
+p:Turdidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "drozdowate"@pl ;
+    p:rodzinaWRzedzie p:Passeriformes .
+
+p:bielik a p:GatunekOWrazliwejLokalizacji,
+        owl:NamedIndividual ;
+    rdfs:label "bielik"@pl ;
+    p:maBarwe p:Bialy,
+        p:Brazowy,
+        p:Zolty ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:BardzoDuzy ;
+    p:maStatusPobytu p:Osiadly ;
+    p:nalezyDoRodziny p:Accipitridae ;
+    p:nazwaNaukowa "Haliaeetus albicilla" ;
+    p:wystepujeW p:Las,
+        p:WodySrodladowe,
+        p:Wybrzeze ;
+    p:zywiSie p:Padlina,
+        p:Ptaki,
+        p:Ryby ;
+    skos:altLabel "orzeł bielik"@pl ;
+    skos:exactMatch wd:Q25438 .
+
+p:bocian_bialy a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "bocian biały"@pl ;
+    p:maBarwe p:Bialy,
+        p:Czarny,
+        p:Czerwony ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:BardzoDuzy ;
+    p:maStatusPobytu p:Wedrowny ;
+    p:nalezyDoRodziny p:Ciconiidae ;
+    p:nazwaNaukowa "Ciconia ciconia" ;
+    p:wystepujeW p:Mokradla,
+        p:TerenOtwarty ;
+    p:zywiSie p:DrobneSsaki,
+        p:Dzdzownice,
+        p:Owady,
+        p:Plazy ;
+    skos:altLabel "bocian"@pl ;
+    skos:exactMatch wd:Q25352 .
+
+p:dotyczyGatunku a owl:FunctionalProperty,
+        owl:ObjectProperty ;
+    rdfs:label "dotyczy gatunku"@pl ;
+    rdfs:domain p:Obserwacja ;
+    rdfs:range p:Gatunek .
+
+p:dudek a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "dudek"@pl ;
+    p:maBarwe p:Bialy,
+        p:Czarny,
+        p:Rudy ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Sredni ;
+    p:maStatusPobytu p:Wedrowny ;
+    p:nalezyDoRodziny p:Upupidae ;
+    p:nazwaNaukowa "Upupa epops" ;
+    p:wystepujeW p:TerenOtwarty ;
+    p:zywiSie p:Owady ;
+    skos:altLabel "dudek zwyczajny"@pl ;
+    skos:exactMatch wd:Q25247 .
+
+p:ges_bialoczelna a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "gęś białoczelna"@pl ;
+    p:maBarwe p:Bialy,
+        p:Brazowy,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:BardzoDuzy ;
+    p:maStatusPobytu p:GoscZimowy ;
+    p:nalezyDoRodziny p:Anatidae ;
+    p:nazwaNaukowa "Anser albifrons" ;
+    p:wystepujeW p:TerenOtwarty,
+        p:WodySrodladowe ;
+    p:zywiSie p:RoslinyZielone ;
+    skos:altLabel "białoczelna"@pl ;
+    skos:exactMatch wd:Q172093 .
+
+p:jemioluszka a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "jemiołuszka"@pl ;
+    p:maBarwe p:Brazowy,
+        p:Zolty ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Sredni ;
+    p:maStatusPobytu p:GoscZimowy ;
+    p:nalezyDoRodziny p:Bombycillidae ;
+    p:nazwaNaukowa "Bombycilla garrulus" ;
+    p:wystepujeW p:Las,
+        p:Miasto ;
+    p:zywiSie p:Owoce ;
+    skos:altLabel "jemiołuszka zwyczajna"@pl ;
+    skos:exactMatch wd:Q26135 .
+
+p:kopciuszek a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "kopciuszek"@pl ;
+    p:maBarwe p:Czarny,
+        p:Rudy,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:Maly ;
+    p:maStatusPobytu p:Wedrowny ;
+    p:nalezyDoRodziny p:Muscicapidae ;
+    p:nazwaNaukowa "Phoenicurus ochruros" ;
+    p:wystepujeW p:Miasto ;
+    p:zywiSie p:Owady ;
+    skos:altLabel "kopciuszek zwyczajny"@pl ;
+    skos:exactMatch wd:Q26755 .
+
+p:kw_12_10 a p:Kwadrat,
+        owl:NamedIndividual ;
+    rdfs:label "kwadrat 12,10"@pl ;
+    p:maSiedlisko p:Las ;
+    p:wspolrzednaX 12 ;
+    p:wspolrzednaY 10 .
+
+p:kw_13_10 a p:Kwadrat,
+        owl:NamedIndividual ;
+    rdfs:label "kwadrat 13,10"@pl ;
+    p:maSiedlisko p:Las ;
+    p:wspolrzednaX 13 ;
+    p:wspolrzednaY 10 .
+
+p:kw_16_14 a p:Kwadrat,
+        owl:NamedIndividual ;
+    rdfs:label "kwadrat 16,14"@pl ;
+    p:maSiedlisko p:Las,
+        p:WodySrodladowe ;
+    p:wspolrzednaX 16 ;
+    p:wspolrzednaY 14 .
+
+p:maStatusPobytu a owl:FunctionalProperty,
+        owl:ObjectProperty ;
+    rdfs:label "ma status pobytu"@pl ;
+    rdfs:domain p:Gatunek ;
+    rdfs:range p:StatusPobytu .
+
+p:zuraw a p:Gatunek,
+        owl:NamedIndividual ;
+    rdfs:label "żuraw"@pl ;
+    p:maBarwe p:Bialy,
+        p:Czarny,
+        p:Czerwony,
+        p:Szary ;
+    p:maKategorieIUCN p:LC ;
+    p:maRozmiar p:BardzoDuzy ;
+    p:maStatusPobytu p:Wedrowny ;
+    p:nalezyDoRodziny p:Gruidae ;
+    p:nazwaNaukowa "Grus grus" ;
+    p:wystepujeW p:Mokradla,
+        p:TerenOtwarty ;
+    p:zywiSie p:Nasiona,
+        p:Owady,
+        p:RoslinyZielone ;
+    skos:altLabel "żuraw zwyczajny"@pl ;
+    skos:exactMatch wd:Q4764 .
+
+p:Columbidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "gołębiowate"@pl ;
+    p:rodzinaWRzedzie p:Columbiformes .
+
+p:kw_04_04 a p:Kwadrat,
+        owl:NamedIndividual ;
+    rdfs:label "kwadrat 4,4"@pl ;
+    p:maSiedlisko p:Miasto,
+        p:WodySrodladowe ;
+    p:wspolrzednaX 4 ;
+    p:wspolrzednaY 4 .
+
+p:kw_10_02 a p:Kwadrat,
+        owl:NamedIndividual ;
+    rdfs:label "kwadrat 10,2"@pl ;
+    p:maSiedlisko p:TerenOtwarty ;
+    p:wspolrzednaX 10 ;
+    p:wspolrzednaY 2 .
+
+p:kw_15_14 a p:Kwadrat,
+        owl:NamedIndividual ;
+    rdfs:label "kwadrat 15,14"@pl ;
+    p:maSiedlisko p:Las ;
+    p:wspolrzednaX 15 ;
+    p:wspolrzednaY 14 .
+
+p:BezkregowceWodne a p:Pokarm,
+        owl:NamedIndividual ;
+    rdfs:label "bezkręgowce wodne"@pl .
+
+p:Fringillidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "łuszczakowate"@pl ;
+    p:rodzinaWRzedzie p:Passeriformes .
+
+p:GoscZimowy a p:StatusZimowy,
+        owl:NamedIndividual ;
+    rdfs:label "gość zimowy, w Polsce nie gniazduje"@pl .
+
+p:KategoriaZagrozenia a owl:Class ;
+    rdfs:label "kategoria zagrożenia wyginięciem"@pl ;
+    rdfs:comment "Kategorie VU, EN i CR, czyli gatunki globalnie zagrożone wyginięciem."@pl ;
+    rdfs:subClassOf p:KategoriaIUCN .
+
+p:Niebieski a p:Barwa,
+        owl:NamedIndividual ;
+    rdfs:label "niebieski"@pl .
+
+p:Padlina a p:Pokarm,
+        owl:NamedIndividual ;
+    rdfs:label "padlina"@pl .
+
+p:Plazy a p:PokarmKregowy,
+        owl:NamedIndividual ;
+    rdfs:label "płazy"@pl .
+
+p:Przelot a p:Zachowanie,
+        owl:NamedIndividual ;
+    rdfs:label "przelot"@pl .
+
+p:RzadPtakowDrapieznych a owl:Class ;
+    rdfs:label "rząd ptaków drapieżnych"@pl ;
+    rdfs:comment "Rzędy zaliczane w ornitologii terenowej do ptaków drapieżnych: szponiaste, sokołowe i sowy."@pl ;
+    rdfs:subClassOf p:Rzad .
+
+p:SiedliskoWodne a owl:Class ;
+    rdfs:label "siedlisko wodne"@pl ;
+    rdfs:comment "Siedliska związane z wodą: wody śródlądowe, mokradła, wybrzeże morskie."@pl ;
+    rdfs:subClassOf p:Siedlisko .
+
+p:StatusLegowy a owl:Class ;
+    rdfs:label "status lęgowy"@pl ;
+    rdfs:comment "Statusy gatunków regularnie gniazdujących w Polsce."@pl ;
+    rdfs:subClassOf p:StatusPobytu .
+
+p:StatusPobytu a owl:Class ;
+    rdfs:label "status pobytu"@pl ;
+    rdfs:comment "Charakter obecności gatunku w Polsce w ciągu roku."@pl .
+
+p:StatusZimowy a owl:Class ;
+    rdfs:label "status z obecnością zimą"@pl ;
+    rdfs:comment "Statusy, przy których gatunek regularnie przebywa w Polsce zimą."@pl ;
+    rdfs:subClassOf p:StatusPobytu .
+
+p:VU a p:KategoriaZagrozenia,
+        owl:NamedIndividual ;
+    rdfs:label "narażony"@pl .
+
+p:ZachowanieLegowe a owl:Class ;
+    rdfs:label "zachowanie lęgowe"@pl ;
+    rdfs:comment "Zachowanie świadczące o lęgu w miejscu obserwacji: gniazdo, karmienie młodych, tokowanie."@pl ;
+    rdfs:subClassOf p:Zachowanie .
+
+p:kw_07_06 a p:Kwadrat,
+        owl:NamedIndividual ;
+    rdfs:label "kwadrat 7,6"@pl ;
+    p:maSiedlisko p:Mokradla,
+        p:WodySrodladowe ;
+    p:wspolrzednaX 7 ;
+    p:wspolrzednaY 6 .
+
+p:Accipitridae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "jastrzębiowate"@pl ;
+    p:rodzinaWRzedzie p:Accipitriformes .
+
+p:Anatidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "kaczkowate"@pl ;
+    p:rodzinaWRzedzie p:Anseriformes .
+
+p:Corvidae a p:Rodzina,
+        owl:NamedIndividual ;
+    rdfs:label "krukowate"@pl ;
+    p:rodzinaWRzedzie p:Passeriformes .
+
+p:GatunekOWrazliwejLokalizacji a owl:Class ;
+    rdfs:label "gatunek o wrażliwej lokalizacji"@pl ;
+    rdfs:comment "Gatunek, którego miejsc lęgów nie publikuje się dokładnie: ze strefami ochrony albo globalnie zagrożony."@pl ;
+    rdfs:subClassOf p:Gatunek .
+
+p:Gniazdo a p:ZachowanieLegowe,
+        owl:NamedIndividual ;
+    rdfs:label "gniazdo"@pl .
+
+p:KategoriaIUCN a owl:Class ;
+    rdfs:label "kategoria IUCN"@pl ;
+    rdfs:comment "Kategoria zagrożenia z globalnej Czerwonej listy IUCN."@pl .
+
+p:PokarmKregowy a owl:Class ;
+    rdfs:label "pokarm z kręgowców"@pl ;
+    rdfs:comment "Kręgowce jako pokarm: ryby, płazy, ptaki z ich jajami i pisklętami, drobne ssaki."@pl ;
+    rdfs:subClassOf p:Pokarm .
+
+p:Zielony a p:Barwa,
+        owl:NamedIndividual ;
+    rdfs:label "zielony"@pl .
+
+p:kw_05_05 a p:Kwadrat,
+        owl:NamedIndividual ;
+    rdfs:label "kwadrat 5,5"@pl ;
+    p:maSiedlisko p:TerenOtwarty ;
+    p:wspolrzednaX 5 ;
+    p:wspolrzednaY 5 .
+
+p:kw_08_06 a p:Kwadrat,
+        owl:NamedIndividual ;
+    rdfs:label "kwadrat 8,6"@pl ;
+    p:maSiedlisko p:WodySrodladowe ;
+    p:wspolrzednaX 8 ;
+    p:wspolrzednaY 6 .
+
+p:KlasaRozmiaru a owl:Class ;
+    rdfs:label "klasa wielkości"@pl ;
+    rdfs:comment "Przedział długości ciała używany przy rozpoznawaniu ptaka w terenie."@pl .
+
+p:Owoce a p:Pokarm,
+        owl:NamedIndividual ;
+    rdfs:label "owoce"@pl .
+
+p:Ptaki a p:PokarmKregowy,
+        owl:NamedIndividual ;
+    rdfs:label "ptaki, ich jaja i pisklęta"@pl .
+
+p:Wybrzeze a p:SiedliskoWodne,
+        owl:NamedIndividual ;
+    rdfs:label "wybrzeże morskie"@pl .
+
+p:Zachowanie a owl:Class ;
+    rdfs:label "zachowanie"@pl ;
+    rdfs:comment "Zachowanie ptaka odnotowane w zgłoszeniu."@pl .
+
+p:kw_06_05 a p:Kwadrat,
+        owl:NamedIndividual ;
+    rdfs:label "kwadrat 6,5"@pl ;
+    p:maSiedlisko p:Mokradla,
+        p:TerenOtwarty ;
+    p:wspolrzednaX 6 ;
+    p:wspolrzednaY 5 .
+
+p:obs03 a p:Obserwator,
+        owl:NamedIndividual ;
+    rdfs:label "obs03"@pl ;
+    p:liczbaZweryfikowanychZgloszen "12"^^xsd:nonNegativeInteger .
+
+p:Dzdzownice a p:Pokarm,
+        owl:NamedIndividual ;
+    rdfs:label "dżdżownice"@pl .
+
+p:Ryby a p:PokarmKregowy,
+        owl:NamedIndividual ;
+    rdfs:label "ryby"@pl .
+
+p:Siedlisko a owl:Class ;
+    rdfs:label "siedlisko"@pl ;
+    rdfs:comment "Typ środowiska, w którym gatunek regularnie przebywa."@pl .
+
+p:Spiew a p:Zachowanie,
+        owl:NamedIndividual ;
+    rdfs:label "śpiew"@pl .
+
+p:Zolty a p:Barwa,
+        owl:NamedIndividual ;
+    rdfs:label "żółty"@pl .
+
+p:obs04 a p:Obserwator,
+        owl:NamedIndividual ;
+    rdfs:label "obs04"@pl ;
+    p:liczbaZweryfikowanychZgloszen "3"^^xsd:nonNegativeInteger .
+
+p:obs05 a p:Obserwator,
+        owl:NamedIndividual ;
+    rdfs:label "obs05"@pl ;
+    p:liczbaZweryfikowanychZgloszen "160"^^xsd:nonNegativeInteger .
+
+p:obs01 a p:Obserwator,
+        owl:NamedIndividual ;
+    rdfs:label "obs01"@pl ;
+    p:liczbaZweryfikowanychZgloszen "420"^^xsd:nonNegativeInteger .
+
+p:obs02 a p:Obserwator,
+        owl:NamedIndividual ;
+    rdfs:label "obs02"@pl ;
+    p:liczbaZweryfikowanychZgloszen "85"^^xsd:nonNegativeInteger .
+
+p:obs06 a p:Obserwator,
+        owl:NamedIndividual ;
+    rdfs:label "obs06"@pl ;
+    p:liczbaZweryfikowanychZgloszen "0"^^xsd:nonNegativeInteger .
+
+p:Czerwony a p:Barwa,
+        owl:NamedIndividual ;
+    rdfs:label "czerwony"@pl .
+
+p:DrobneSsaki a p:PokarmKregowy,
+        owl:NamedIndividual ;
+    rdfs:label "drobne ssaki"@pl .
+
+p:Mokradla a p:SiedliskoWodne,
+        owl:NamedIndividual ;
+    rdfs:label "mokradła i trzcinowiska"@pl .
+
+p:RoslinyZielone a p:Pokarm,
+        owl:NamedIndividual ;
+    rdfs:label "zielone części roślin"@pl .
+
+p:kw_03_04 a p:Kwadrat,
+        owl:NamedIndividual ;
+    rdfs:label "kwadrat 3,4"@pl ;
+    p:maSiedlisko p:Miasto ;
+    p:wspolrzednaX 3 ;
+    p:wspolrzednaY 4 .
+
+p:Obserwator a owl:Class ;
+    rdfs:label "obserwator"@pl ;
+    rdfs:comment "Osoba zgłaszająca obserwacje, występująca pod pseudonimem."@pl .
+
+p:Pokarm a owl:Class ;
+    rdfs:label "pokarm"@pl ;
+    rdfs:comment "Grupa pokarmu, który gatunek regularnie zjada."@pl .
+
+p:BardzoDuzy a p:KlasaRozmiaru,
+        owl:NamedIndividual ;
+    rdfs:label "bardzo duży, powyżej 60 cm"@pl .
+
+p:Barwa a owl:Class ;
+    rdfs:label "barwa"@pl ;
+    rdfs:comment "Barwa upierzenia, dzioba lub nóg dobrze widoczna w terenie."@pl .
+
+p:Passeriformes a p:Rzad,
+        owl:NamedIndividual ;
+    rdfs:label "wróblowe"@pl .
+
+p:Maly a p:KlasaRozmiaru,
+        owl:NamedIndividual ;
+    rdfs:label "mały, do 16 cm"@pl .
+
+p:Rudy a p:Barwa,
+        owl:NamedIndividual ;
+    rdfs:label "rudy"@pl .
+
+p:Sredni a p:KlasaRozmiaru,
+        owl:NamedIndividual ;
+    rdfs:label "średni, od 17 do 30 cm"@pl .
+
+p:Kwadrat a owl:Class ;
+    rdfs:label "kwadrat siatki"@pl ;
+    rdfs:comment "Kwadrat o boku 1 km na obszarze badań."@pl .
+
+p:Wedrowny a p:StatusLegowy,
+        owl:NamedIndividual ;
+    rdfs:label "lęgowy wędrowny"@pl .
+
+p:Osiadly a p:StatusLegowy,
+        p:StatusZimowy,
+        owl:NamedIndividual ;
+    rdfs:label "lęgowy osiadły"@pl .
+
+p:WodySrodladowe a p:SiedliskoWodne,
+        owl:NamedIndividual ;
+    rdfs:label "wody śródlądowe: jeziora, stawy, rzeki"@pl .
+
+p:Rzad a owl:Class ;
+    rdfs:label "rząd"@pl ;
+    rdfs:comment "Rząd w systematyce ptaków."@pl .
+
+p:Brazowy a p:Barwa,
+        owl:NamedIndividual ;
+    rdfs:label "brązowy"@pl .
+
+p:Nasiona a p:Pokarm,
+        owl:NamedIndividual ;
+    rdfs:label "nasiona"@pl .
+
+p:Szary a p:Barwa,
+        owl:NamedIndividual ;
+    rdfs:label "szary"@pl .
+
+p:CzesciowoWedrowny a p:StatusLegowy,
+        p:StatusZimowy,
+        owl:NamedIndividual ;
+    rdfs:label "lęgowy, częściowo wędrowny"@pl .
+
+p:Duzy a p:KlasaRozmiaru,
+        owl:NamedIndividual ;
+    rdfs:label "duży, od 31 do 60 cm"@pl .
+
+p:Zerowanie a p:Zachowanie,
+        owl:NamedIndividual ;
+    rdfs:label "żerowanie"@pl .
+
+p:Bialy a p:Barwa,
+        owl:NamedIndividual ;
+    rdfs:label "biały"@pl .
+
+p:Las a p:Siedlisko,
+        owl:NamedIndividual ;
+    rdfs:label "las"@pl .
+
+p:TerenOtwarty a p:Siedlisko,
+        owl:NamedIndividual ;
+    rdfs:label "pola, łąki i inne tereny otwarte"@pl .
+
+p:Czarny a p:Barwa,
+        owl:NamedIndividual ;
+    rdfs:label "czarny"@pl .
+
+p:Miasto a p:Siedlisko,
+        owl:NamedIndividual ;
+    rdfs:label "miasto, parki i ogrody"@pl .
+
+p:Owady a p:Pokarm,
+        owl:NamedIndividual ;
+    rdfs:label "owady"@pl .
+
+p:Rodzina a owl:Class ;
+    rdfs:label "rodzina"@pl ;
+    rdfs:comment "Rodzina w systematyce ptaków."@pl .
+
+p:LC a p:KategoriaIUCN,
+        owl:NamedIndividual ;
+    rdfs:label "najmniejszej troski"@pl .
+
+p:Obserwacja a owl:Class ;
+    rdfs:label "obserwacja"@pl ;
+    rdfs:comment "Zgłoszenie jednego gatunku w jednym kwadracie w jednym czasie."@pl .
+
+p:Gatunek a owl:Class ;
+    rdfs:label "gatunek"@pl ;
+    rdfs:comment "Gatunek ptaka jako całość. Jego cechy opisują typowego dorosłego przedstawiciela, nie konkretnego osobnika."@pl .
+
+[] a owl:AllDifferent ;
+    owl:distinctMembers ( p:Maly p:Sredni p:Duzy p:BardzoDuzy ) .
+
+[] a owl:AllDifferent ;
+    owl:distinctMembers ( p:LC p:NT p:VU p:EN p:CR ) .
+
+[] a owl:AllDifferent ;
+    owl:distinctMembers ( p:Osiadly p:CzesciowoWedrowny p:Wedrowny p:GoscZimowy ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( p:Gatunek p:Rodzina p:Rzad p:Siedlisko p:Pokarm p:StatusPobytu p:KategoriaIUCN p:KlasaRozmiaru p:Barwa p:Obserwator p:Kwadrat p:Obserwacja p:Zachowanie ) .
+
